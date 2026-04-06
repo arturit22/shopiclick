@@ -1,0 +1,9 @@
+import type { RootState } from "../../app/store";
+
+export const selectCartItems = (state: RootState) => state.cart.items
+
+export const selectCartTotalQuantity = (state: RootState) => 
+    state.cart.items.reduce((sum, item) => sum + item.quantity, 0)
+
+export const selectCartTotalItems = (state: RootState) => 
+    state.cart.items.reduce((sum, item) => sum + item.price, 0)
