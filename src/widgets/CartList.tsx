@@ -30,8 +30,8 @@ export const CartList = () => {
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <button onClick={() => dispatch(increaseQuantity(item.id))} className="rounded-md border px-3 py-1">+</button>
-                        <button onClick={() => dispatch(decreaseQuantity(item.id))} className="rounded-md border px-3 py-1">-</button>
+                        <button aria-label={`increase quantity for ${item.title}`} onClick={() => dispatch(increaseQuantity(item.id))} className="rounded-md border px-3 py-1">+</button>
+                        <button aria-label={`decrease quantity for ${item.title}`} onClick={() => dispatch(decreaseQuantity(item.id))} className="rounded-md border px-3 py-1">-</button>
                     </div>
                     <button onClick={() => dispatch(removeFromCart(item.id))} className="rounded-md border px-3 py-2">Remove</button>
                 </div>
