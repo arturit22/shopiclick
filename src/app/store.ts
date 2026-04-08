@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import productReducer from '../features/products/productSlice'
 import cartReducer from '../features/cart/cartSlice'
+import catalogReducer from '../features/catalog/catalogSlice'
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 
 const storage = {
@@ -18,6 +19,7 @@ const storage = {
 const rootReducer = combineReducers({
     products: productReducer,
     cart: cartReducer,
+    catalog: catalogReducer,
 })
 
 const persistConfig = {
