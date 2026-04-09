@@ -51,7 +51,7 @@ describe('Header', () => {
         )
 
         expect(screen.getByText('Store')).toBeInTheDocument()
-        expect(screen.getByText(/Cart/i)).toBeInTheDocument()
+        expect(screen.getByText(/cart/i)).toBeInTheDocument()
         expect(screen.getByText(/3/)).toBeInTheDocument()
     })
 })

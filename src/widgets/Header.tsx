@@ -5,6 +5,7 @@ import type { AppDispatch, RootState } from "../app/store"
 import { setSearchValue } from "../features/catalog/catalogSlice"
 import { useEffect, useState } from "react"
 import { useDebounce } from "../shared/hooks/useDebounce"
+import { ShoppingCart, Search } from "lucide-react"
 
 export function Header() {
     const totalQuantity = useSelector(selectCartTotalQuantity)
@@ -22,19 +23,24 @@ export function Header() {
 
 
     return (
-        <header className="border-b p-4">
-            <div className="container mx-auto flex justify-between">
-                <Link to="/" className="text-xl font-bold">
+        <header className="sticky top-0 z-50 bg-white/60 backdrop-blur border-b p-4">
+            <div className="container mx-auto flex flex-col gap-4 px-4 py-4 md:flex-row md:items-center md:justify-between">
+                <Link to="/" className="text-2xl font-extrabold tracking-tight text-gray-900 transition hover:opactity-80">
                     ShopiClick
                 </Link>
 
-                <input type="text" placeholder="Search products..." value={inputValue} onChange={(e) => setInputValue(e.target.value)} className="border rounded-lg px-4 py-2 w-1/3" />
+                <div className="relative w-full md:max-w-xl">
+                    <Search size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                    <input id="product-search" name="productSearch" type="text" placeholder="Search products..." value={inputValue} onChange={(e) => setInputValue(e.target.value)} className="w-full rounded-full border border-gray-300 bg-white py-3 pl-11 pr-4 text-sm outline-none transition focus:border-black" />
+                </div>
 
-                <Link to="cart" className="relative">
-                    Cart
-                    <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs px-2 rounded-full">
-                        {totalQuantity}
-                    </span>
+                <Link to="cart" className="relative inline-flex items-center gap-2 self-start rounded-full border border-gray-300 px-4 py-2 font-medium text-gray-900 transition hover:bg-gray-100 md:self-auto">
+                    <ShoppingCart size={18} />
+                    {totalQuantity > 0 && (
+                        <span className="absolute -right-2 -top-2 min-w-5 rounded-full bg-red-500 px-1.5 py-0.5 text-center text-xs font-bold text-white">
+                            {totalQuantity}
+                        </span>
+                    )}
                 </Link>
             </div>
         </header>

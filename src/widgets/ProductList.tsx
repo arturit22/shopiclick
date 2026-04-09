@@ -8,12 +8,25 @@ interface ProductListProps {
 }
 
 export const ProductList = ({products, loading, error}: ProductListProps) => {
-    if (loading) return <div>Loading...</div>
-    if (error) return <div>Error... {error}</div>
-    if (!loading && !error && products.length === 0) return <div>Products not found...</div>
+    if (loading) {
+      return <p className="text-center mt-10">Loading...</p>
+    }
+
+    if (error) {
+      return <p className="text-center mt-10 text-red-500">{error}</p>
+    }
+    
+    if (!loading && !error && products.length === 0) {
+      return (
+        <div className="mt-10 text-center text-gray-500">
+          <p className="text-lg font-medium">No products found</p>
+          <p className="text-sm">Try another search or category</p>
+        </div>
+      )
+    }
 
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {products.map((product) => (
         <ProductCard key={product.id} product={product}/>
       ))}
