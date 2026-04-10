@@ -54,6 +54,7 @@ export const CartList = () => {
 
                         <div className="flex items-center gap-2">
                             <button
+                                aria-label={`increase quantity for ${item.title}`}
                                 onClick={() => dispatch(increaseQuantity(item.id))}
                                 className="h-9 w-9 rounded-lg border hover:bg-gray-100"
                             >
@@ -65,6 +66,7 @@ export const CartList = () => {
                             </span>
 
                             <button
+                                aria-label={`decrease quantity for ${item.title}`}
                                 onClick={() => dispatch(decreaseQuantity(item.id))}
                                 className="h-9 w-9 rounded-lg border hover:bg-gray-100"
                             >

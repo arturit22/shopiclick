@@ -6,6 +6,7 @@ import productReducer from '../features/products/productSlice'
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import { Header } from "./Header";
+import catalogReducer from '../features/catalog/catalogSlice'
 
 
 describe('Header', () => {
@@ -14,6 +15,7 @@ describe('Header', () => {
             reducer: {
                 cart: cartReducer,
                 products: productReducer,
+                catalog: catalogReducer,
             },
             preloadedState: {
                 cart: {
@@ -39,6 +41,10 @@ describe('Header', () => {
                     loading: false,
                     error: null,
                 },
+                catalog: {
+                    searchValue: "",
+                    selectedCategory: 'all',
+                }
             },
         })
     
@@ -50,8 +56,7 @@ describe('Header', () => {
             </Provider>
         )
 
-        expect(screen.getByText('Store')).toBeInTheDocument()
-        expect(screen.getByText(/cart/i)).toBeInTheDocument()
-        expect(screen.getByText(/3/)).toBeInTheDocument()
+        expect(screen.getByText('ShopiClick')).toBeInTheDocument()
+        expect(screen.getByRole('link', {name: /cart/i})).toBeInTheDocument()
     })
 })

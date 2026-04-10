@@ -6,6 +6,7 @@ import { fetchProducts } from "../features/products/productSlice"
 import { Link } from "react-router-dom"
 import { addToCart } from "../features/cart/cartSlice"
 import { ProductPageSkeleton } from "./ProductPageSkeleton"
+import toast from "react-hot-toast"
 
 export const ProductPage = () => {
     const { id } = useParams()
@@ -52,6 +53,7 @@ export const ProductPage = () => {
                 thumbnail: product.thumbnail,
             })
         )
+        toast.success('Product added to cart')
     }
 
     return (

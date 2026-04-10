@@ -3,6 +3,7 @@ import type { AppDispatch } from "../../app/store"
 import { addToCart } from "../../features/cart/cartSlice"
 import { Link } from "react-router-dom"
 import type { Product } from './type'
+import toast from "react-hot-toast"
 
 interface ProductCardProps {
   product: Product
@@ -20,6 +21,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         thumbnail: product.thumbnail,
       })
     )
+    toast.success('Product added to cart')
   }
 
   return (

@@ -14,7 +14,7 @@ describe('CartList', () => {
         configureStore({
             reducer: {
                 cart: cartReducer,
-                product: productReducer,
+                products: productReducer,
             },
             preloadedState: {
                 cart: {
@@ -27,7 +27,7 @@ describe('CartList', () => {
                             quantity: 2,
                         },
                     ],
-                    product: {
+                    products: {
                         items: [],
                         loading: false,
                         error: null,

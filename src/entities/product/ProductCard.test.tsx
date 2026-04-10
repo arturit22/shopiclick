@@ -9,6 +9,7 @@ import { ProductCard } from './ProductCard'
 import { Header } from '../../widgets/Header'
 import cartReducer from '../../features/cart/cartSlice'
 import productReducer from '../../features/products/productSlice'
+import catalogReducer from '../../features/catalog/catalogSlice'
 
 describe('ProductCard', () => {
     const testStore = () =>
@@ -16,6 +17,7 @@ describe('ProductCard', () => {
             reducer: {
                 cart: cartReducer,
                 product: productReducer,
+                catalog: catalogReducer,
             },
             preloadedState: {
                 cart: {
@@ -26,7 +28,12 @@ describe('ProductCard', () => {
                     loading: false,
                     error: null,
                 },
+                catalog: {
+                    searchValue: '',
+                    selectedCategory: 'all',
+                }
             },
+            
         })
 
     const product = {
