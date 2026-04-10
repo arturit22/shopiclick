@@ -1,4 +1,5 @@
 import { ProductCard } from "../entities/product/ProductCard"
+import { ProductCardSkeleton } from "../entities/product/ProductCardSkeleton"
 import type {Product} from '../entities/product/type'
 
 interface ProductListProps {
@@ -9,7 +10,13 @@ interface ProductListProps {
 
 export const ProductList = ({products, loading, error}: ProductListProps) => {
     if (loading) {
-      return <p className="text-center mt-10">Loading...</p>
+      return (
+        <div className="grid gird-cols 1 gap-6 sm:gird-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {Array.from({length: 8}).map((_, index) => (
+            <ProductCardSkeleton key={index} />
+          ))}
+        </div>
+      )
     }
 
     if (error) {
