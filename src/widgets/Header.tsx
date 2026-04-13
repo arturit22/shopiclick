@@ -6,6 +6,8 @@ import { setSearchValue } from "../features/catalog/catalogSlice"
 import { useEffect, useState } from "react"
 import { useDebounce } from "../shared/hooks/useDebounce"
 import { ShoppingCart, Search } from "lucide-react"
+import { MiniCart } from "./MiniCart"
+import { useRef } from "react"
 
 export function Header() {
     const totalQuantity = useSelector(selectCartTotalQuantity)
@@ -13,13 +15,40 @@ export function Header() {
     const dispatch = useDispatch<AppDispatch>()
 
     const [inputValue, setInputValue] = useState(searchValue)
+    const [isMiniCartOpen, setIsMiniCartOpen] = useState(false)
     const debounce = useDebounce(inputValue, 300)
+    const miniCartRef = useRef<HTMLDivElement | null>(null)
 
     useEffect(() => {
         dispatch(setSearchValue(debounce))
     }, [debounce, dispatch])
 
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (miniCartRef.current && !miniCartRef.current.contains(event.target as Node)) {
+                setIsMiniCartOpen(false)
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside)
 
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside)
+        }
+    }, [])
+
+    useEffect(() => {
+        function handleEscape (event: KeyboardEvent) {
+            if (event.key === 'Escape') {
+                setIsMiniCartOpen(false)
+            }
+        }
+
+        document.addEventListener("keydown", handleEscape)
+
+        return () => {
+            document.removeEventListener('keydown', handleEscape)
+        }
+    }, [])
 
 
     return (
@@ -34,14 +63,18 @@ export function Header() {
                     <input id="product-search" name="productSearch" type="text" placeholder="Search products..." value={inputValue} onChange={(e) => setInputValue(e.target.value)} className="w-full rounded-full border border-gray-300 bg-white py-3 pl-11 pr-4 text-sm outline-none transition focus:border-black" />
                 </div>
 
-                <Link aria-label="Cart" to="cart" className="relative inline-flex items-center gap-2 self-start rounded-full border border-gray-300 px-4 py-2 font-medium text-gray-900 transition hover:bg-gray-100 md:self-auto">
+                <div className="relative" ref={miniCartRef}>
+                    <button type="button" aria-label="Cart" onClick={() => setIsMiniCartOpen((prev) => !prev)} className="relative inline-flex items-center gap-2 self-start rounded-full border border-gray-300 px-4 py-2 font-medium text-gray-900 transition hover:bg-gray-100 md:self-auto">
                     <ShoppingCart size={18} />
                     {totalQuantity > 0 && (
                         <span className="absolute -right-2 -top-2 min-w-5 rounded-full bg-red-500 px-1.5 py-0.5 text-center text-xs font-bold text-white">
                             {totalQuantity}
                         </span>
                     )}
-                </Link>
+                    </button>
+                    {isMiniCartOpen && <MiniCart />}
+                </div>
+                
             </div>
         </header>
     )
