@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { selectCartTotalPrice, selectCartTotalQuantity } from "../features/cart/cartSelector"
 import { Link } from "react-router-dom"
 import { removeFromCart } from "../features/cart/cartSlice"
+import {motion} from 'framer-motion'
 
 
 export const MiniCart = () => {
@@ -13,17 +14,17 @@ export const MiniCart = () => {
 
     if (items.length === 0) {
         return (
-            <div className="absolute right-0 top-14 z-[200] w-80 rounded-2xl border border-gray-200 bg-white p-4 shadow-xl">
+            <motion.div initial={{opacity: 0, y: -12, scale: 0.97}} animate={{opacity: 1, y: 0, scale: 1}} exit={{opacity: 0, y: -8, scale: 0.98}} transition={{duration: 0.25}} className="absolute right-0 top-14 z-[200] w-80 rounded-2xl border border-gray-200 bg-white p-4 shadow-xl">
                 <h3 className="text-lg font-semibold">Cart</h3>
                 <p className="mt-3 text-sm text-gray-500">Your cart is empty</p>
 
                 <Link to="/" className="mt-4 inline-block rounded-xl border px-4 py-2 text-sm font-medium hover:bg-gray-100">Go shopping</Link>
-            </div>
+            </motion.div>
         )
     }
 
     return (
-        <div className="absolute right-0 top-14 z-[200] w-80 rounded-2xl border border-gray-200 bg-white p-4 shadow-xl">
+        <motion.div initial={{opacity: 0, y: -12, scale: 0.97}} animate={{opacity: 1, y: 0, scale: 1}} exit={{opacity: 0, y: -8, scale: 0.98}} transition={{duration: 0.25}} className="absolute right-0 top-14 z-[200] w-80 rounded-2xl border border-gray-200 bg-white p-4 shadow-xl">
             <div className="mb-4 flex items-center justify-between">
                 <h3 className="text-lg font-semibold">Cart</h3>
                 <span className="text-sm text-gray-500">{totalQuantity} items</span>
@@ -59,7 +60,7 @@ export const MiniCart = () => {
                     Open cart
                 </Link>
             </div>
-        </div>
+        </motion.div>
     )
 }
 

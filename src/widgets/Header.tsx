@@ -8,6 +8,7 @@ import { useDebounce } from "../shared/hooks/useDebounce"
 import { ShoppingCart, Search } from "lucide-react"
 import { MiniCart } from "./MiniCart"
 import { useRef } from "react"
+import { AnimatePresence } from "framer-motion"
 
 export function Header() {
     const totalQuantity = useSelector(selectCartTotalQuantity)
@@ -37,7 +38,7 @@ export function Header() {
     }, [])
 
     useEffect(() => {
-        function handleEscape (event: KeyboardEvent) {
+        function handleEscape(event: KeyboardEvent) {
             if (event.key === 'Escape') {
                 setIsMiniCartOpen(false)
             }
@@ -65,16 +66,18 @@ export function Header() {
 
                 <div className="relative" ref={miniCartRef}>
                     <button type="button" aria-label="Cart" onClick={() => setIsMiniCartOpen((prev) => !prev)} className="relative inline-flex items-center gap-2 self-start rounded-full border border-gray-300 px-4 py-2 font-medium text-gray-900 transition hover:bg-gray-100 md:self-auto">
-                    <ShoppingCart size={18} />
-                    {totalQuantity > 0 && (
-                        <span className="absolute -right-2 -top-2 min-w-5 rounded-full bg-red-500 px-1.5 py-0.5 text-center text-xs font-bold text-white">
-                            {totalQuantity}
-                        </span>
-                    )}
+                        <ShoppingCart size={18} />
+                        {totalQuantity > 0 && (
+                            <span className="absolute -right-2 -top-2 min-w-5 rounded-full bg-red-500 px-1.5 py-0.5 text-center text-xs font-bold text-white">
+                                {totalQuantity}
+                            </span>
+                        )}
                     </button>
-                    {isMiniCartOpen && <MiniCart />}
+                    <AnimatePresence>
+                        {isMiniCartOpen && <MiniCart />}
+                    </AnimatePresence>
                 </div>
-                
+
             </div>
         </header>
     )
