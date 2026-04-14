@@ -54,6 +54,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         </div>
 
         <button
+          data-keep-minicart-open="true"
           onClick={handleAddToCart}
           className="mt-5 rounded-xl bg-black px-4 py-3 text-sm font-semibold text-white transition hover:bg-gray-800 active:scale-[0.98]"
         >

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { selectCartTotalQuantity } from "../features/cart/cartSelector"
 import type { AppDispatch, RootState } from "../app/store"
@@ -14,6 +14,7 @@ export function Header() {
     const totalQuantity = useSelector(selectCartTotalQuantity)
     const searchValue = useSelector((state: RootState) => state.catalog.searchValue)
     const dispatch = useDispatch<AppDispatch>()
+    const location = useLocation()
 
     const [inputValue, setInputValue] = useState(searchValue)
     const [isMiniCartOpen, setIsMiniCartOpen] = useState(false)
@@ -26,7 +27,13 @@ export function Header() {
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
-            if (miniCartRef.current && !miniCartRef.current.contains(event.target as Node)) {
+            const target = event.target as HTMLElement
+
+            if (target.closest('[data-keep-minicart-open="true"]')) {
+                return
+            }
+
+            if (miniCartRef.current && !miniCartRef.current.contains(target)) {
                 setIsMiniCartOpen(false)
             }
         }
@@ -51,6 +58,10 @@ export function Header() {
         }
     }, [])
 
+    useEffect(() => {
+        setIsMiniCartOpen(false)
+    }, [location])
+
 
     return (
         <header className="sticky top-0 z-50 bg-white/60 backdrop-blur border-b p-4">
@@ -74,7 +85,7 @@ export function Header() {
                         )}
                     </button>
                     <AnimatePresence>
-                        {isMiniCartOpen && <MiniCart />}
+                        {isMiniCartOpen && <MiniCart onClose={() => setIsMiniCartOpen(false)} />}
                     </AnimatePresence>
                 </div>
 

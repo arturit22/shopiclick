@@ -5,8 +5,11 @@ import { Link } from "react-router-dom"
 import { removeFromCart } from "../features/cart/cartSlice"
 import {motion} from 'framer-motion'
 
+interface MiniCartProps {
+    onClose: () => void
+};
 
-export const MiniCart = () => {
+export const MiniCart = ({onClose}: MiniCartProps) => {
     const dispatch = useDispatch<AppDispatch>()
     const items = useSelector((state: RootState) => state.cart.items)
     const totalQuantity = useSelector(selectCartTotalQuantity)
@@ -18,7 +21,7 @@ export const MiniCart = () => {
                 <h3 className="text-lg font-semibold">Cart</h3>
                 <p className="mt-3 text-sm text-gray-500">Your cart is empty</p>
 
-                <Link to="/" className="mt-4 inline-block rounded-xl border px-4 py-2 text-sm font-medium hover:bg-gray-100">Go shopping</Link>
+                <Link onClick={onClose} to="/" className="mt-4 inline-block rounded-xl border px-4 py-2 text-sm font-medium hover:bg-gray-100">Go shopping</Link>
             </motion.div>
         )
     }
@@ -55,6 +58,7 @@ export const MiniCart = () => {
 
                 <Link
                     to="/cart"
+                    onClick={onClose}
                     className="mt-4 block rounded-xl bg-black py-3 text-center text-sm font-semibold text-white transition hover:bg-gray-800"
                 >
                     Open cart

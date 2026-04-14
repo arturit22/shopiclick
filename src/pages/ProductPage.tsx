@@ -97,6 +97,7 @@ export const ProductPage = () => {
 
                     <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                         <button
+                            data-keep-minicart-open="true"
                             onClick={handleAddToCart}
                             className="rounded-xl bg-black px-6 py-3 text-sm font-semibold text-white transition hover:bg-gray-800 active:scale-[0.99]"
                         >
