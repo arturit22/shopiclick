@@ -2,42 +2,51 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import productReducer from '../features/products/productSlice'
 import cartReducer from '../features/cart/cartSlice'
 import catalogReducer from '../features/catalog/catalogSlice'
-import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist'
 
 const storage = {
-    getItem: (key: string) => {
-        return Promise.resolve(window.localStorage.getItem(key))
-    },
-    setItem: (key: string, value: string) => {
-        return Promise.resolve(window.localStorage.setItem(key, value))
-    },
-    removeItem: (key: string) => {
-        return Promise.resolve(window.localStorage.removeItem(key))
-    },
+  getItem: (key: string) => {
+    return Promise.resolve(window.localStorage.getItem(key))
+  },
+  setItem: (key: string, value: string) => {
+    return Promise.resolve(window.localStorage.setItem(key, value))
+  },
+  removeItem: (key: string) => {
+    return Promise.resolve(window.localStorage.removeItem(key))
+  },
 }
 
 const rootReducer = combineReducers({
-    products: productReducer,
-    cart: cartReducer,
-    catalog: catalogReducer,
+  products: productReducer,
+  cart: cartReducer,
+  catalog: catalogReducer,
 })
 
 const persistConfig = {
-    key: 'root',
-    storage,
-    whitelist: ['cart']
+  key: 'root',
+  storage,
+  whitelist: ['cart'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
-    reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-            },
-        }),
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 })
 
 export const persistor = persistStore(store)

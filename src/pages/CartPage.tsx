@@ -1,4 +1,4 @@
-import { CartList } from "../widgets/CartList"
+import { CartList } from '../widgets/CartList'
 
 export const CartPage = () => {
   return (
@@ -7,5 +7,3 @@ export const CartPage = () => {
     </div>
   )
 }
-
-

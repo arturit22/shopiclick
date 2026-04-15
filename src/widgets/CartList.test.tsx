@@ -10,52 +10,54 @@ import cartReducer from '../features/cart/cartSlice'
 import productReducer from '../features/products/productSlice'
 
 describe('CartList', () => {
-    const testStore = () =>
-        configureStore({
-            reducer: {
-                cart: cartReducer,
-                products: productReducer,
+  const testStore = () =>
+    configureStore({
+      reducer: {
+        cart: cartReducer,
+        products: productReducer,
+      },
+      preloadedState: {
+        cart: {
+          items: [
+            {
+              id: 1,
+              title: 'phone',
+              price: 100,
+              thumbnail: 'image.jpg',
+              quantity: 2,
             },
-            preloadedState: {
-                cart: {
-                    items: [
-                        {
-                            id: 1,
-                            title: 'phone',
-                            price: 100,
-                            thumbnail: 'image.jpg',
-                            quantity: 2,
-                        },
-                    ],
-                    products: {
-                        items: [],
-                        loading: false,
-                        error: null,
-                    },
-                }
-            }
-        })
-
-    it('should decrease quantity and remove product after second click', async () => {
-        const user = userEvent.setup()
-        const store = testStore()
-
-        render(
-            <Provider store={store}>
-                <MemoryRouter>
-                    <CartList />
-                </MemoryRouter>
-            </Provider>
-        )
-
-        const decreaseButton = screen.getByRole('button', {name: /decrease quantity for phone/i})
-        await user.click(decreaseButton)
-
-        expect(store.getState().cart.items).toHaveLength(1)
-        expect(store.getState().cart.items[0].quantity).toBe(1)
-
-        await user.click(decreaseButton)
-
-        expect(store.getState().cart.items).toHaveLength(0)
+          ],
+          products: {
+            items: [],
+            loading: false,
+            error: null,
+          },
+        },
+      },
     })
+
+  it('should decrease quantity and remove product after second click', async () => {
+    const user = userEvent.setup()
+    const store = testStore()
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <CartList />
+        </MemoryRouter>
+      </Provider>
+    )
+
+    const decreaseButton = screen.getByRole('button', {
+      name: /decrease quantity for phone/i,
+    })
+    await user.click(decreaseButton)
+
+    expect(store.getState().cart.items).toHaveLength(1)
+    expect(store.getState().cart.items[0].quantity).toBe(1)
+
+    await user.click(decreaseButton)
+
+    expect(store.getState().cart.items).toHaveLength(0)
+  })
 })

@@ -1,9 +1,9 @@
-import { useDispatch } from "react-redux"
-import type { AppDispatch } from "../../app/store"
-import { addToCart } from "../../features/cart/cartSlice"
-import { Link } from "react-router-dom"
+import { useDispatch } from 'react-redux'
+import type { AppDispatch } from '../../app/store'
+import { addToCart } from '../../features/cart/cartSlice'
+import { Link } from 'react-router-dom'
 import type { Product } from './type'
-import toast from "react-hot-toast"
+import toast from 'react-hot-toast'
 
 interface ProductCardProps {
   product: Product

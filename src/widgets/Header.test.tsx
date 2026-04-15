@@ -1,62 +1,61 @@
-import { configureStore } from "@reduxjs/toolkit";
-import {render, screen} from '@testing-library/react'
-import { describe, it, expect } from "vitest";
+import { configureStore } from '@reduxjs/toolkit'
+import { render, screen } from '@testing-library/react'
+import { describe, it, expect } from 'vitest'
 import cartReducer from '../features/cart/cartSlice'
 import productReducer from '../features/products/productSlice'
-import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
-import { Header } from "./Header";
+import { Provider } from 'react-redux'
+import { MemoryRouter } from 'react-router-dom'
+import { Header } from './Header'
 import catalogReducer from '../features/catalog/catalogSlice'
 
-
 describe('Header', () => {
-    it('should render store title and cart quantity', () => {
-        const store = configureStore({
-            reducer: {
-                cart: cartReducer,
-                products: productReducer,
-                catalog: catalogReducer,
+  it('should render store title and cart quantity', () => {
+    const store = configureStore({
+      reducer: {
+        cart: cartReducer,
+        products: productReducer,
+        catalog: catalogReducer,
+      },
+      preloadedState: {
+        cart: {
+          items: [
+            {
+              id: 1,
+              title: 'phone',
+              price: 100,
+              thumbnail: 'image1.jpg',
+              quantity: 2,
             },
-            preloadedState: {
-                cart: {
-                    items: [
-                        {
-                            id: 1,
-                            title: 'phone',
-                            price: 100,
-                            thumbnail: 'image1.jpg',
-                            quantity: 2,
-                        },
-                        {
-                            id: 2,
-                            title: 'laptop',
-                            price: 500,
-                            thumbnail: 'image2.jpg',
-                            quantity: 1,
-                        },
-                    ],
-                },
-                products: {
-                    items: [],
-                    loading: false,
-                    error: null,
-                },
-                catalog: {
-                    searchValue: "",
-                    selectedCategory: 'all',
-                }
+            {
+              id: 2,
+              title: 'laptop',
+              price: 500,
+              thumbnail: 'image2.jpg',
+              quantity: 1,
             },
-        })
-    
-        render(
-            <Provider store={store}>
-                <MemoryRouter>
-                    <Header />
-                </MemoryRouter>
-            </Provider>
-        )
-
-        expect(screen.getByText('ShopiClick')).toBeInTheDocument()
-        expect(screen.getByRole('link', {name: /cart/i})).toBeInTheDocument()
+          ],
+        },
+        products: {
+          items: [],
+          loading: false,
+          error: null,
+        },
+        catalog: {
+          searchValue: '',
+          selectedCategory: 'all',
+        },
+      },
     })
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Header />
+        </MemoryRouter>
+      </Provider>
+    )
+
+    expect(screen.getByText('ShopiClick')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /cart/i })).toBeInTheDocument()
+  })
 })
