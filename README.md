@@ -94,7 +94,7 @@ ShopiClick — это интернет-магазин с фокусом на:
 ## 📦 Установка и запуск
 
 ```bash
-git clone https://github.com/your-username/shopiclick.git
+git clone https://github.com/arturit22/shopiclick.git
 cd shopiclick
 
 npm install
