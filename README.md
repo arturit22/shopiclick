@@ -1,75 +1,101 @@
-# React + TypeScript + Vite
+# 🛒 ShopiClick
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Современное e-commerce приложение на React с продуманной архитектурой, тестами и UX.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Demo
 
-## React Compiler
+👉 https://shopiclick.vercel.app/
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+---
 
-Note: This will impact Vite dev & build performances.
+## 🧠 О проекте
 
-## Expanding the ESLint configuration
+ShopiClick — это интернет-магазин с фокусом на:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- чистую архитектуру
+- удобный UX
+- тестируемость
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Проект реализован как production-ready приложение с использованием Redux для управления состоянием и покрыт unit и integration тестами.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## ✨ Основные фичи
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 🛍️ Каталог
+- список товаров
+- переход на страницу товара
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 🔎 Поиск
+- поиск товаров
+- debounce для оптимизации
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 🛒 Корзина
+- добавление / удаление товаров
+- изменение количества
+- подсчёт общей суммы и количества
+- сохранение состояния (persist)
+
+### 🧩 Mini Cart (в Header)
+- отображение товаров без перехода
+- удаление товара прямо в dropdown
+- закрытие:
+  - по клику вне
+  - по Escape
+  - при смене страницы
+- анимации (framer-motion)
+
+### ⚡ UX
+- skeleton loading
+- toast уведомления
+- плавные анимации
+
+---
+
+## 🧪 Тестирование
+
+- **Unit тесты**
+  - reducers
+  - selectors
+
+- **Integration тесты**
+  - компоненты
+  - пользовательские сценарии (клики, изменение состояния)
+
+---
+
+## 🏗️ Архитектура
+
+- `features/` — бизнес-логика (Redux slices)
+- `entities/` — доменные модели
+- `widgets/` — UI-блоки (Header, Cart и т.д.)
+- `shared/` — переиспользуемые вещи
+
+👉 бизнес-логика изолирована в Redux, UI остаётся максимально “чистым”
+
+---
+
+## 🛠️ Стек
+
+- React
+- TypeScript
+- Redux Toolkit
+- React Router
+- Vite
+- Tailwind CSS
+- Framer Motion
+- Vitest + Testing Library
+- ESLint + Prettier
+
+---
+
+## 📦 Установка и запуск
+
+```bash
+git clone https://github.com/your-username/shopiclick.git
+cd shopiclick
+
+npm install
+npm run dev
